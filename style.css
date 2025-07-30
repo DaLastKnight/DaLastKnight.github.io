@@ -1,3 +1,26 @@
 body {
     background-color: white;
 }
+
+@media (max-width: 800px)
+{
+    nav ul li {
+        display: block;
+    }
+
+    #menu {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+    }
+}
+
+.menuShow {
+    display: block;
+}
+
+button {
+    border-style: none;
+}
