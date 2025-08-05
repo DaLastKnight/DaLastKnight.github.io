@@ -18,6 +18,7 @@
                     <li><button id = "owlspecies">Owl Species</button></li>
                     <li><button id = "owlhunt">Owl Hunt</button></li>
                     <li><button id = "funfacts">Fun facts</button></li>
+                    <li><button id = "owlgame">Minigame</button></li>
                 </ul>
             </nav>
         </header>
@@ -101,46 +102,24 @@
                 <p>
                     There are many interesting details when it comes to owls hunting their prey! Let's have a look!
                 </p>
-                <article>
-                    <h3>Timing the hunt</h3>
-                    <p>
-                        Most owls, like the barn owl, are nocturnal and use their enchanced night vision and sharp hearing 
-                        to hunt during the night, when their prey like rodents and insects are more active. However, there 
-                        are some exceptions like the short-eared owl and burrowing owl that hunt during either sunrise or 
-                        sunset and in full daylight respectively.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>Locating the prey</h3>
-                    <p>
-                        When it comes to locating prey, owls use their binocular vision and forward-facing eyes that have 
-                        retinas tuned to low light levels to find prey. Some owls don't even use vision, and fully rely on 
-                        their hearing to locate prey in total darkness, which is supported by their satellite-shaped facial  
-                        disks that funnel the sound of their surroundings to their ears.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>Stalking and approaching the prey</h3>
-                    <p>
-                        When approaching their next meal, owls use their unique feathers to break turbulence and reduce sound. 
-                        This allows them to glide silently to a striking position, often without their prey knowing they're 
-                        coming. Certain owls perch and ambush their prey, while others may hover around their prey and wait 
-                        for the opportunity to strike their prey.
-                    </p>
-                </article>
-
-                <article>
-                    <h3>Striking the prey</h3>
-                    <p>
-                        Owls, being raptors, kill off their prey by using their razor sharp talons instead of their beaks to 
-                        pierce through their prey. Not all owls kill off their prey immediately however, because they may choose 
-                        to bring them back to their nest and finish the job later on.
-                    </p>
-                </article>
-                <!-- Can use JS to make different stages toggleable -->
-                <!-- Insert a short game? -->
+                <h3 id = "huntstage">Stage 0: Hunt Begins</h3>
+                <div class = "hunt">
+                    <img src = "images/white-owl-sitting.png" alt = "white owl sitting" title = "white owl sit" class = "hunt" id = "owlsit">
+                    <img src = "images/white-owl-flying.png" alt = "white owl flying" title = "white owl fly" class = "hunt" id = "owlfly">
+                    <img src = "images/rat.png" alt = "rat" title = "rat" class = "hunt" id = "rat">
+                    <img src = "images/cheese.png" alt = "cheese" title = "cheese" class = "hunt" id = "cheese">
+                    <img src = "images/super-mario-sunshine-sun.png" alt = "sun" title = "sun" class = "hunt" id = "sun">
+                    <img src = "images/super-mario-odyssey-moon.png" alt = "moon" title = "moon" class = "hunt" id = "moon">
+                </div>
+                <div>
+                    <div class = "arrow" id = "phoneleftarrow"></div>
+                    <div class = "arrow" id = "phonerightarrow"></div>
+                </div>
+                <div id = "phone">
+                    <div class = "arrow" id = "leftarrow"></div>
+                    <div id = "hunttext">Text</div>
+                    <div class = "arrow" id = "rightarrow"></div>
+                </div>
             </section>
 
             <section class = "page" id = "page4">
@@ -156,7 +135,53 @@
                         <p>A single barn owl can eat up to 3000 rodents in one breeding season!</p>
                     </li>
                 </ul>
-                <!-- Quiz section about owls -->
+                <h2>It's Quiz Time!</h2>
+                <p>With your newfound knowledge about owls, challenge yourself with this quiz!</p>
+                <fieldset>
+                    <legend>1. What order do owls belong in?</legend>
+                    <label><input type = "radio" name = "q1" value = "Strigiformes"> Strigiformes</label>
+                    <label><input type = "radio" name = "q1" value = "Strigidae"> Strigidae</label>
+                    <label><input type = "radio" name = "q1" value = "Tytonidae"> Tytonidae</label>
+                </fieldset>
+                <fieldset>
+                    <legend>2. Which of these facts are true? (can choose more than 1)</legend>
+                    <label><input type = "checkbox" name = "q2" value = "forest"> Owls only live in forests</label>
+                    <label><input type = "checkbox" name = "q2" value = "moretrue"> There are more species of true owls than barn owls</label>
+                    <label><input type = "checkbox" name = "q2" value = "heart"> Strigidae owls have heart-shaped faces</label>
+                    <label><input type = "checkbox" name = "q2" value = "rotate"> Owls can do a 270 degree rotation of their heads</label>
+                </fieldset>
+                <fieldset>
+                    <legend>3. What is the purpose of an owl's facial disk?</legend>
+                    <label>To funnel <input type = "text" name = "q3" placeholder= "Enter word"> into their ears</label>
+                </fieldset>
+                <fieldset>
+                    <legend>4. Which owl makes this hoot?</legend>
+                    <button>Play sound</button>
+                    <!-- Add <audio> here... -->
+                    <label><input type = "radio" name = "q4" value = "snowy">Snowy owl</label>
+                    <label><input type = "radio" name = "q4" value = "tawny">Tawny owl</label>
+                    <label><input type = "radio" name = "q4" value = "barn" >Barn owl</label>
+                </fieldset>
+                <fieldset>
+                    <legend>5. How are you liking the webpages so far? :D</legend>
+                    <label>This sucks! <input type = "range" name = "q5" min = "0" max = "100" value = "50"> Very cool!</label>
+                </fieldset>
+                <div id = "quizbuttons">
+                    <button id = "submit">Check score</button>
+                    <button id = "retry">Retry quiz</button>
+                </div>
+                
+                <h2 id = "scoretext">Not submitted</h2>
+            </section>
+
+            <section class = "page" id = "page5">
+                <div id = "status">
+                    <div id = "health"></div>
+                    <p>Rats found: <span id = "ratsfound">0</span> / <span id = "ratstotal">0</span></p>
+                    <p id = "message"></p>
+                    <div id = "reset"></div>
+                </div>
+                <div id = "gridgame"></div>
             </section>
         </main>
     </body>

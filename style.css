@@ -101,13 +101,297 @@ body {
 
     /* Page 3 */
 
+    #page3>div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #page3 h3+div {
+        height: 25.0em;
+    }
+
+    #page3 h3+div img {
+        max-width: 15%;
+        height: auto;
+    }
+
+    #page3>div .arrow {
+        max-width: 20%;
+        height: auto;
+    }
+
+    #page3>div #hunttext {
+        max-width: 65%;
+    }
+
+    #page3 #leftarrow {
+        background: url('images/icon-sprites.png') no-repeat -236px -226px;
+        width: 128px;
+        height: 112px;
+    }
+
+    #page3 #rightarrow {
+        background: url('images/icon-sprites.png') no-repeat -36px -226px;
+        width: 128px;
+        height: 112px;
+    }
+
+    /* Hunt Stages */
+
+    div.hunt.stage1 {
+        background-color: #009933;
+        transition: all 0.5s;
+    }
+
+    div.hunt.stage1.stage2, div.hunt.stage1.stage2.stage3, div.hunt.stage1.stage2.stage3.stage4 {
+        background-color: #0a5327;
+    }
+    
+    #owlsit.stage1 {
+        opacity: 1.0;
+        transform: translate(0px, 0px) scale(0.9);
+        transition: transform 0.5s, opacity 0.5s;
+       
+    }
+
+    #owlsit.stage1.stage2, #owlsit.stage1.stage2.stage3, #owlsit.stage1.stage2.stage3.stage4 {
+        transform: translate(10vw, 0px) scale(0.9);
+        opacity: 0;
+    }
+
+    #owlfly.stage1 {
+        position: relative;
+        z-index: 3;
+        opacity: 0;
+        transform: translate(-15vw, -5vh) scale(1.40);
+        transition: transform 1.0s, opacity 0.5s;
+    }
+
+    #owlfly.stage1.stage2 {
+        position: relative;
+        opacity: 1.0;
+        transform: translate(15vw, -10vh) scale(1.40);
+        transition: transform 1.0s, opacity 0.5s;
+    }
+
+    #owlfly.stage1.stage2.stage3 {
+        position: relative;
+        opacity: 1.0;
+        transform: translate(25vw, 0vh) scale(1.40);
+        transition: transform 0.8s;
+    }
+
+    #owlfly.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1.0;
+        transform: translate(50vw, 2vh) scale(1.40);
+    }
+
+    #rat.stage1 {
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translate(10vw, 16vh) scale(0.6);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #rat.stage1.stage2 {
+        position: relative;
+        opacity: 1;
+        transform: translate(10vw, 16vh) scale(0.6);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #rat.stage1.stage2.stage3 {
+        position: relative;
+        opacity: 1;
+        transform: translate(20vw, 16vh) scale(0.6);
+        transition: transform 0.5s;
+    }
+
+    #rat.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1;
+        transform: translate(40vw, 16vh) scale(0.6);
+        transition: transform 0.5s;
+    }
+
+    #cheese.stage1 {
+        position: relative;
+        z-index: 1;
+        opacity: 0;
+        transform: translate(0vw, 16vh) scale(0.5);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #cheese.stage1.stage2 {
+        position: relative;
+        opacity: 1;
+        transform: translate(0vw, 16vh) scale(0.5);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #cheese.stage1.stage2.stage3, #cheese.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1;
+        transform: translate(10vw, 16vh) scale(0.5);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #cheese.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 0.5;
+        transform: translate(10vw, 16vh) scale(0.5);
+
+    }
+
+    #sun.stage1 {
+        position: relative;
+        opacity: 1;
+        animation: SunMoving 4s infinite ease-in-out;
+        transform-origin: center center;
+        transition: opacity 0.5s;
+    }
+
+    #sun.stage1.stage2, #sun.stage1.stage2.stage3, #sun.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 0;
+    }
+
+    #moon.stage1 {
+        position: relative;
+        opacity: 0;
+        animation: MoonMoving 4s infinite ease-in-out;
+        transform-origin: center center;
+        transition: opacity 0.5s;
+    }
+
+    #moon.stage1.stage2, #moon.stage1.stage2.stage3, #moon.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1;
+    }
+
+    /* Animations */
+
+    @keyframes SunMoving {
+        0% {
+            transform: translate(10vw, -15vh);
+        }
+        
+        25% {
+            transform: translate(10vw, -15vh) rotate(-30deg);
+        }
+
+        62.5% {
+            transform: translate(10vw, -15vh) rotate(30deg);
+        }
+
+        100% {
+            transform: translate(10vw, -15vh) rotate(0deg);
+        }
+    }
+
+    @keyframes MoonMoving {
+        0% {
+            transform: translate(-5vw, -15vh) scale(0.65);
+        }
+        
+        25% {
+            transform: translate(-5vw, -15vh) rotate(-30deg) scale(0.65);
+        }
+
+        62.5% {
+            transform: translate(-5vw, -15vh) rotate(30deg) scale(0.65);
+        }
+
+        100% {
+            transform: translate(-5vw, -15vh) rotate(0deg) scale(0.65);
+        }
+    }
+
     /* Page 4 */
+
+    #page4.displayed {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #quizbuttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    #submit, #retry {
+        width: 45vw;
+        height: 10vh;
+    }
+
+    /* Page 5 */
+    #gridgame {
+        display: grid;
+        grid-template-columns: repeat(5, 8vw);
+        gap: 0.1em;
+        padding: 0.1em;
+    }
+
+    .griditem {
+        opacity: 1.0;
+        background-color: saddlebrown;
+        height: 8vh;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        transition: opacity 0.5s;
+    }
+
+    .griditem.empty {
+        opacity: 0;
+    }
+
+    .griditem.bomb, .griditem.rat {
+        opacity: 1.0;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .griditem.bomb {
+        background-image: url('images/bombicon.png');
+    }
+
+    .griditem.rat {
+        background-image: url('images/rat.png');
+    }
+
+    #health {
+        display: flex;
+    }
+
+    .heart {
+        width: 5vw;
+        height: auto;
+    }
+
+    #reset {
+        background: url('images/icon-sprites.png') no-repeat -236px -32px;
+	    width: 128px;
+	    height: 124px;
+    }
 }
 
 @media (max-width: 800px)
 {
+    nav {
+        display: flex;
+        flex-direction: row;
+    }
+    
     nav ul li {
-        display: block;
+        display: inline;
     }
 
     #menu {
@@ -116,6 +400,365 @@ body {
 
     nav ul {
         display: none;
+    }
+
+    /* All pages */
+
+    .hidden {
+        display: none;
+    }
+
+    /* Page 1 */
+
+    #page1.displayed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #page1>img {
+        max-width: 80%;
+        height: auto;
+    }
+    
+    #page1 article div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #page1 article div div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        max-width: 70%;
+    }
+
+    #page1 article div div img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Page 2 */
+
+    #page2.displayed {
+        display: block;
+    }
+
+    #page2 article div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        max-width: 100%;
+    }
+
+    #page2 article div img {
+        max-width: 30%;
+        height: auto;
+
+        transition: opacity ease 0.3s, transform ease 0.3s;
+        opacity: 0.5;
+        transform: scale(1.0);
+    }
+
+    #page2 article div img:hover {
+        opacity: 1.0;
+        transform: scale(1.10);
+    }
+
+    #page2 article div img.clicked {
+        opacity: 1.0;
+        transform: scale(1.10);
+    }
+
+    #page2 article div img.clicked:hover {
+        opacity: 1.0;
+        transform: scale(1.10);
+    }
+
+    /* Page 3 */
+
+    #page3>div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #page3 h3+div {
+        height: 15.0em;
+    }
+
+    #page3 h3+div img {
+        max-width: 15%;
+        height: auto;
+    }
+
+    #page3>div .arrow {
+        max-width: 25%;
+        height: auto;
+    }
+
+    #page3>div #hunttext {
+        max-width: 50%;
+    }
+
+    #page3 #leftarrow {
+        background: url('images/icon-sprites.png') no-repeat -236px -226px;
+        width: 128px;
+        height: 112px;
+    }
+
+    #page3 #rightarrow {
+        background: url('images/icon-sprites.png') no-repeat -36px -226px;
+        width: 128px;
+        height: 112px;
+    }
+
+    /* Hunt Stages */
+
+    div.hunt.stage1 {
+        background-color: #009933;
+        transition: all 0.5s;
+    }
+
+    div.hunt.stage1.stage2, div.hunt.stage1.stage2.stage3, div.hunt.stage1.stage2.stage3.stage4 {
+        background-color: #0a5327;
+    }
+    
+    #owlsit.stage1 {
+        opacity: 1.0;
+        transform: translate(0px, 0px) scale(0.9);
+        transition: transform 0.5s, opacity 0.5s;
+       
+    }
+
+    #owlsit.stage1.stage2, #owlsit.stage1.stage2.stage3, #owlsit.stage1.stage2.stage3.stage4 {
+        transform: translate(10vw, 0px) scale(0.9);
+        opacity: 0;
+    }
+
+    #owlfly.stage1 {
+        position: relative;
+        z-index: 3;
+        opacity: 0;
+        transform: translate(-15vw, -5vh) scale(1.40);
+        transition: transform 1.0s, opacity 0.5s;
+    }
+
+    #owlfly.stage1.stage2 {
+        position: relative;
+        opacity: 1.0;
+        transform: translate(15vw, -10vh) scale(1.40);
+        transition: transform 1.0s, opacity 0.5s;
+    }
+
+    #owlfly.stage1.stage2.stage3 {
+        position: relative;
+        opacity: 1.0;
+        transform: translate(25vw, 0vh) scale(1.40);
+        transition: transform 0.8s;
+    }
+
+    #owlfly.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1.0;
+        transform: translate(50vw, 2vh) scale(1.40);
+    }
+
+    #rat.stage1 {
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translate(10vw, 16vh) scale(0.6);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #rat.stage1.stage2 {
+        position: relative;
+        opacity: 1;
+        transform: translate(10vw, 16vh) scale(0.6);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #rat.stage1.stage2.stage3 {
+        position: relative;
+        opacity: 1;
+        transform: translate(20vw, 16vh) scale(0.6);
+        transition: transform 0.5s;
+    }
+
+    #rat.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1;
+        transform: translate(40vw, 16vh) scale(0.6);
+        transition: transform 0.5s;
+    }
+
+    #cheese.stage1 {
+        position: relative;
+        z-index: 1;
+        opacity: 0;
+        transform: translate(0vw, 16vh) scale(0.5);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #cheese.stage1.stage2 {
+        position: relative;
+        opacity: 1;
+        transform: translate(0vw, 16vh) scale(0.5);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #cheese.stage1.stage2.stage3, #cheese.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1;
+        transform: translate(10vw, 16vh) scale(0.5);
+        transition: transform 0.5s, opacity 0.5s;
+    }
+
+    #cheese.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 0.5;
+        transform: translate(10vw, 16vh) scale(0.5);
+
+    }
+
+    #sun.stage1 {
+        position: relative;
+        opacity: 1;
+        animation: SunMoving 4s infinite ease-in-out;
+        transform-origin: center center;
+        transition: opacity 0.5s;
+    }
+
+    #sun.stage1.stage2, #sun.stage1.stage2.stage3, #sun.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 0;
+    }
+
+    #moon.stage1 {
+        position: relative;
+        opacity: 0;
+        animation: MoonMoving 4s infinite ease-in-out;
+        transform-origin: center center;
+        transition: opacity 0.5s;
+    }
+
+    #moon.stage1.stage2, #moon.stage1.stage2.stage3, #moon.stage1.stage2.stage3.stage4 {
+        position: relative;
+        opacity: 1;
+    }
+
+    /* Animations */
+
+    @keyframes SunMoving {
+        0% {
+            transform: translate(10vw, -15vh);
+        }
+        
+        25% {
+            transform: translate(10vw, -15vh) rotate(-30deg);
+        }
+
+        62.5% {
+            transform: translate(10vw, -15vh) rotate(30deg);
+        }
+
+        100% {
+            transform: translate(10vw, -15vh) rotate(0deg);
+        }
+    }
+
+    @keyframes MoonMoving {
+        0% {
+            transform: translate(-5vw, -15vh) scale(0.65);
+        }
+        
+        25% {
+            transform: translate(-5vw, -15vh) rotate(-30deg) scale(0.65);
+        }
+
+        62.5% {
+            transform: translate(-5vw, -15vh) rotate(30deg) scale(0.65);
+        }
+
+        100% {
+            transform: translate(-5vw, -15vh) rotate(0deg) scale(0.65);
+        }
+    }
+
+    /* Page 4 */
+
+    #page4.displayed {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #quizbuttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    #submit, #retry {
+        width: 45vw;
+        height: 10vh;
+    }
+
+    /* Page 5 */
+    #gridgame {
+        display: grid;
+        grid-template-columns: repeat(5, 8vw);
+        gap: 0.1em;
+        padding: 0.1em;
+    }
+
+    .griditem {
+        opacity: 1.0;
+        background-color: saddlebrown;
+        height: 3vh;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        transition: opacity 0.5s;
+    }
+
+    .griditem.empty {
+        opacity: 0;
+    }
+
+    .griditem.bomb, .griditem.rat {
+        opacity: 1.0;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .griditem.bomb {
+        background-image: url('images/bombicon.png');
+    }
+
+    .griditem.rat {
+        background-image: url('images/rat.png');
+    }
+
+    #health {
+        display: flex;
+    }
+
+    .heart {
+        width: 5vw;
+        height: auto;
+    }
+
+    #reset {
+        background: url('images/icon-sprites.png') no-repeat -236px -32px;
+	    width: 128px;
+	    height: 124px;
     }
 }
 

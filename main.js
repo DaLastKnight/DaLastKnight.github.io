@@ -1,13 +1,15 @@
-// Variables for menu nav
+// Menu Nav variables
 const btnMenu = document.querySelector("#menu");
 const btnMenuPagesList = document.querySelector("nav ul");
 const btnAbtOwl = document.querySelector("#abtowl");
 const btnOwlSpecies = document.querySelector("#owlspecies");
 const btnOwlHunt = document.querySelector("#owlhunt");
 const btnFunFacts = document.querySelector("#funfacts");
+const btnOwlGame = document.querySelector("#owlgame")
+
 let allpages = document.querySelectorAll(".page");
 
-// Variables for owl species
+// Page 2 variables
 
 const btnSnowy = document.querySelector("#trueowl1");
 const btnBurrow = document.querySelector("#trueowl2");
@@ -22,6 +24,56 @@ const btnBay = document.querySelector("#barnowl3");
 const barnOwlList = document.querySelectorAll(".barnowl");
 const barnName = document.querySelector("#barnName");
 const barnDescription = document.querySelector("#barnDescription");
+
+// Page 3 variables
+
+const huntStage = document.querySelector("#huntstage");
+const huntText = document.querySelector("#hunttext");
+const leftArrow = document.querySelector("#leftarrow");
+const rightArrow = document.querySelector("#rightarrow");
+const phoneLeftArrow = document.querySelector("#phoneleftarrow");
+const phoneRightArrow = document.querySelector("#phonerightarrow")
+const arrowsList = document.querySelectorAll(".arrow");
+
+let currentStageNum = 1;
+
+const huntElementsList = document.querySelectorAll(".hunt");
+const owlSit = document.querySelector("#owlsit");
+const owlFly = document.querySelector("#owlfly");
+const rat = document.querySelector("#rat");
+const cheese = document.querySelector("#cheese");
+const sun = document.querySelector("#sun");
+const moon = document.querySelector("#moon");
+
+// Page 4 variables
+
+const qnList = document.querySelectorAll("input[name ^= 'q']")
+const btnSubmit = document.querySelector("#submit");
+const btnRetry = document.querySelector("#retry");
+const scoreText = document.querySelector("#scoretext");
+const q5 = document.querySelector("input[name = 'q5']");
+
+let score = 0;
+let rangeValue = 50;
+let isQuizDone = false;
+
+// Page 5 variables
+const gridGame = document.querySelector("#gridgame");
+const gridTypes = ['empty', 'bomb', 'rat'];
+const fullHeartSrc = "images/hearticon.png";
+const brokenHeartSrc = "images/heartbrokenicon.png";
+const healthDisplay = document.querySelector("#health");
+const ratsFoundDisplay = document.querySelector("#ratsfound");
+const ratsTotalDisplay = document.querySelector("#ratstotal");
+const messageDisplay = document.querySelector("#message");
+const btnReset = document.querySelector("#reset");
+
+let gridItems = ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'];
+let maxHealth = 3;
+let health = 0;
+let ratsFound = 0;
+let ratsTotal = 0;
+
 // Stop putting () for functions inside event listeners unless it's newly initialised in there
 
 // Functions for menu navigation
@@ -67,6 +119,9 @@ btnOwlSpecies.addEventListener("click", function()
 btnOwlHunt.addEventListener("click", function()
 {
     showPage(3);
+    changeDisplayedArrows();
+    currentStageNum = 1;
+    toggleStageInfo("nil");
 });
 
 btnFunFacts.addEventListener("click", function()
@@ -74,12 +129,17 @@ btnFunFacts.addEventListener("click", function()
     showPage(4);
 });
 
+btnOwlGame.addEventListener("click", function()
+{
+    showPage(5);
+    createGrid();
+});
+
 hideall();
 showPage(1);
 
-// Functions for owl species
-
-function viewTrueInformation(infoNum)
+// Page 2 Functions
+function viewTrueInfo(infoNum)
 {
     switch (infoNum)
     {
@@ -102,7 +162,7 @@ function viewTrueInformation(infoNum)
     }
 }
 
-function toggleTrueInformation(toggleNum)
+function toggleTrueInfo(toggleNum)
 {
     for (let currentOwlSelected of trueOwlList)
     {
@@ -115,25 +175,25 @@ function toggleTrueInformation(toggleNum)
     let trueOwlSelected = document.querySelector("#trueowl" + toggleNum);
     trueOwlSelected.classList.add("clicked");
 
-    viewTrueInformation(toggleNum);
+    viewTrueInfo(toggleNum);
 }
 
 btnSnowy.addEventListener("click", function()
 {
-    toggleTrueInformation(1);
+    toggleTrueInfo(1);
 });
 
 btnBurrow.addEventListener("click", function()
 {
-    toggleTrueInformation(2);
+    toggleTrueInfo(2);
 });
 
 btnBoreal.addEventListener("click", function()
 {
-    toggleTrueInformation(3);
+    toggleTrueInfo(3);
 });
 
-function viewBarnInformation(infoNum)
+function viewBarnInfo(infoNum)
 {
     switch (infoNum)
     {
@@ -156,7 +216,7 @@ function viewBarnInformation(infoNum)
     }
 }
 
-function toggleBarnInformation(toggleNum)
+function toggleBarnInfo(toggleNum)
 {
     for (let currentOwlSelected of barnOwlList)
     {
@@ -169,20 +229,343 @@ function toggleBarnInformation(toggleNum)
     let barnOwlSelected = document.querySelector("#barnowl" + toggleNum);
     barnOwlSelected.classList.add("clicked");
 
-    viewBarnInformation(toggleNum);
+    viewBarnInfo(toggleNum);
 }
 
 btnBarn.addEventListener("click", function()
 {
-    toggleBarnInformation(1);
+    toggleBarnInfo(1);
 });
 
 btnEast.addEventListener("click", function()
 {
-    toggleBarnInformation(2);
+    toggleBarnInfo(2);
 });
 
 btnBay.addEventListener("click", function()
 {
-    toggleBarnInformation(3);
+    toggleBarnInfo(3);
 });
+
+// Page 3 Functions
+function changeDisplayedArrows()
+{
+    for (let currentArrow of arrowsList)
+    {
+        if (currentArrow.classList.contains("#displayed"))
+        {
+            currentArrow.classList.remove("displayed");
+        }
+    }
+
+    if (parseInt(window.innerWidth) >= 800)
+    {
+        leftArrow.classList.add("displayed");
+        rightArrow.classList.add("displayed");
+    }
+    else
+    {
+        phoneLeftArrow.classList.add("displayed");
+        phoneRightArrow.classList.add("displayed");
+    }
+}
+
+function viewStageInfo(infoNum)
+{
+    switch (infoNum)
+    {
+        case 1:
+            for (let currentElement of huntElementsList)
+            {
+                if (currentElement.classList.contains("stage2"))
+                {
+                    currentElement.classList.remove("stage2");
+                }
+                
+                currentElement.classList.add("stage1");
+            }
+
+            huntStage.innerHTML = "Stage 1: Timing the hunt";
+            huntText.innerHTML = "Most owls, like the barn owl, are nocturnal and use their enchanced night vision and sharp hearing to hunt during the night, when their prey like rodents and insects are more active. However, there are some exceptions like the short-eared owl and burrowing owl that hunt during either sunrise or sunset and in full daylight respectively.";
+            break;
+        case 2:
+            for (let currentElement of huntElementsList)
+            {
+                if (currentElement.classList.contains("stage3"))
+                {
+                    currentElement.classList.remove("stage3");
+                }
+                
+                currentElement.classList.add("stage2");
+            }
+
+            huntStage.innerHTML = "Stage 2: Locating the prey";
+            huntText.innerHTML = "When it comes to locating prey, owls use their binocular vision and forward-facing eyes that have retinas tuned to low light levels to find prey. Some owls don't even use vision, and fully rely on their hearing to locate prey in total darkness, which is supported by their satellite-shaped facial disks that funnel the sound of their surroundings to their ears.";
+            break;
+        case 3:
+            for (let currentElement of huntElementsList)
+            {
+                if (currentElement.classList.contains("stage4"))
+                {
+                    currentElement.classList.remove("stage4");
+                }
+                
+                currentElement.classList.add("stage3");
+            }
+
+            huntStage.innerHTML = "Stage 3: Stalking and approaching the prey";
+            huntText.innerHTML = "When approaching their next meal, owls use their unique feathers to break turbulence and reduce sound. This allows them to glide silently to a striking position, often without their prey knowing they're coming. Certain owls perch and ambush their prey, while others may hover around their prey and wait for the opportunity to strike their prey.";
+            break;
+        case 4:
+            for (let currentElement of huntElementsList)
+            {   
+                currentElement.classList.add("stage4");
+            }
+
+            huntStage.innerHTML = "Stage 4: Striking the prey";
+            huntText.innerHTML = "Owls, being raptors, kill off their prey by using their razor sharp talons instead of their beaks to pierce through their prey. Not all owls kill off their prey immediately however, because they may choose to bring them back to their nest and finish the job later on.";
+            break;
+        default:
+            break;
+    }
+}
+
+function toggleStageInfo(arrowDir)
+{
+    if (arrowDir === "left" && currentStageNum > 1)
+    {
+        currentStageNum--;
+    }
+    else if (arrowDir === "right" && currentStageNum < 4)
+    {
+        currentStageNum++;
+    }
+
+    console.log("yes!");
+    viewStageInfo(currentStageNum);
+}
+
+leftArrow.addEventListener("click", function()
+{
+    toggleStageInfo("left");
+});
+
+rightArrow.addEventListener("click", function()
+{
+    toggleStageInfo("right");
+});
+
+// Page 4 Functions
+function checkAns()
+{
+    if (!isQuizDone)
+    {
+        score = 0;
+
+        let q1 = document.querySelector("input[name = 'q1']:checked").value;
+        if (q1 === 'Strigiformes')
+        {
+            score++;
+        }
+
+        let q2 = document.querySelectorAll("input[name = 'q2']:checked");
+        let selectedAns = Array.from(q2).map(checkbox => checkbox.value);
+        let correctAns = ['moretrue', 'rotate'];
+        if (selectedAns.length === correctAns.length && selectedAns.every(ans => correctAns.includes(ans)))
+        {
+            score++;
+        }
+
+        let q3 = document.querySelector("input[name = 'q3']");
+        let q3Ans = q3.value.toLowerCase();
+        if (q3Ans === 'sound' || q3Ans === 'sounds')
+        {
+            console.log("yes");
+            score++;
+        }
+
+        let q4 = document.querySelector("input[name = 'q4']:checked").value;
+        if (q4 === 'tawny')
+        {
+            score++;
+        }
+
+        // For q5
+        if (rangeValue >= 70)
+        {
+            score++;
+        }
+
+        scoreText.textContent = `Score: ${score}`;
+        isQuizDone = true;
+    }
+    else
+    {
+        scoreText.textContent = "Please click retry to do the quiz again!";
+    }
+}
+
+function resetQuiz()
+{
+    isQuizDone = false;
+    scoreText.textContent = "Not submitted"
+    qnList.forEach(qn =>
+    {
+        switch (qn.type)
+        {
+            case "radio":
+            case "checkbox":
+                qn.checked = false;
+                break;
+            case "text":
+                qn.value = '';
+                break;
+            case "range":
+                qn.value = qn.defaultValue;
+                break;
+            default:
+                break;
+        }
+    });
+}
+
+q5.addEventListener("input", function()
+{
+    rangeValue = q5.value;
+});
+
+btnSubmit.addEventListener("click", function()
+{
+    checkAns();
+});
+
+btnRetry.addEventListener("click", function()
+{
+    resetQuiz();
+});
+
+// Page 5 Functions
+function getRandomGridType()
+{
+    return gridTypes[Math.floor(Math.random() * gridTypes.length)];
+}
+
+function updateStatus()
+{
+    updateHealthDisplay()
+    ratsFoundDisplay.textContent = ratsFound;
+}
+
+function createGrid()
+{
+    gridGame.innerHTML = '';
+    ratsFound = 0;
+    ratsTotal = 0;
+    maxHealth = 3;
+    health = maxHealth;
+    
+    updateHealthDisplay();
+
+    for (let {} of gridItems)
+    {   
+        const gridTile = document.createElement("div");
+        gridTile.classList.add("griditem");
+        gridTile.textContent = '';
+        let type = getRandomGridType();
+        gridTile.dataset.hidden = type;
+
+        if (type === 'rat')
+        {
+            ratsTotal++;
+        }
+
+        gridGame.appendChild(gridTile);
+    }
+
+    ratsTotalDisplay.textContent = ratsTotal;
+}
+
+function updateHealthDisplay()
+{
+    healthDisplay.replaceChildren();
+    for (let i = 0; i < maxHealth; i++)
+    {
+        const heartImg = document.createElement('img');
+        
+        if (i < health)
+        {
+            heartImg.src = fullHeartSrc;
+            heartImg.alt = "A full heart";
+            heartImg.title = "Full heart";
+        }
+        else
+        {
+            heartImg.src = brokenHeartSrc;
+            heartImg.alt = "A broken heart";
+            heartImg.title = "Broken heart";
+        }
+
+        heartImg.classList.add("heart");
+        healthDisplay.appendChild(heartImg);
+    }
+}
+
+function revealAllTiles()
+{
+    const allTiles = document.querySelectorAll(".griditem");
+    allTiles.forEach(tile =>
+    {
+        let type = tile.dataset.hidden;
+        tile.classList.add(type);
+        tile.classList.add("revealed");
+    });
+}
+
+function clickTile(tile) 
+{
+    let gridTile = tile;
+    const type = gridTile.dataset.hidden;
+
+    if (gridTile.classList.contains("griditem") && !gridTile.classList.contains("revealed"))
+    {
+        gridTile.classList.add("revealed");
+
+        if (type === 'bomb')
+        {
+            gridTile.classList.add('bomb');
+            health--;
+            if (health <= 0)
+            {
+                messageDisplay.textContent = "You lose!";
+                revealAllTiles();
+            }
+        }
+        else if (type === 'rat')
+        {
+            gridTile.classList.add('rat');
+            ratsFound++;
+            if (ratsFound === ratsTotal)
+            {
+                messageDisplay.textContent = "You win!";
+                revealAllTiles();
+            }
+        }
+        else if (type === 'empty')
+        {
+            gridTile.classList.add('empty');
+        }
+
+        updateStatus();
+    }
+}
+
+gridGame.addEventListener("click", function(event)
+{
+    const tile = event.target.closest(".griditem");
+    if (tile && !tile.classList.contains("revealed") && health > 0 && ratsFound < ratsTotal)
+    {
+        clickTile(tile);
+    }
+});
+
+btnReset.addEventListener("click", createGrid)
