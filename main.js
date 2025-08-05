@@ -7,11 +7,11 @@ const btnOwlSpecies = document.querySelector("#owlspecies");
 const btnOwlHunt = document.querySelector("#owlhunt");
 const btnFunFacts = document.querySelector("#funfacts");
 const btnOwlGame = document.querySelector("#owlgame");
+const btnRefresh = document.querySelector("#refresh");
 
 let allpages = document.querySelectorAll(".page");
 
 // Page 2 variables
-
 const btnSnowy = document.querySelector("#trueowl1");
 const btnBurrow = document.querySelector("#trueowl2");
 const btnBoreal = document.querySelector("#trueowl3");
@@ -27,28 +27,19 @@ const barnName = document.querySelector("#barnName");
 const barnDescription = document.querySelector("#barnDescription");
 
 // Page 3 variables
-
 const huntStage = document.querySelector("#huntstage");
 const huntText = document.querySelector("#hunttext");
 const huntText2 = document.querySelector("#hunttext2");
 const leftArrow = document.querySelector("#leftarrow");
 const rightArrow = document.querySelector("#rightarrow");
-const arrowsList = document.querySelectorAll(".arrow");
-const textList = document.querySelectorAll(".text");
+const huntElementsList = document.querySelectorAll(".hunt");
 
 let currentStageNum = 1;
 
-const huntElementsList = document.querySelectorAll(".hunt");
-const owlSit = document.querySelector("#owlsit");
-const owlFly = document.querySelector("#owlfly");
-const rat = document.querySelector("#rat");
-const cheese = document.querySelector("#cheese");
-const sun = document.querySelector("#sun");
-const moon = document.querySelector("#moon");
-
 // Page 4 variables
-
-const qnList = document.querySelectorAll("input[name ^= 'q']")
+const qnList = document.querySelectorAll("input[name ^= 'q']");
+const btnSound = document.querySelector("#sound");
+const owlSound = document.querySelector("#owlsound");
 const btnSubmit = document.querySelector("#submit");
 const btnRetry = document.querySelector("#retry");
 const scoreText = document.querySelector("#scoretext");
@@ -61,6 +52,7 @@ let isQuizDone = false;
 // Page 5 variables
 const gridGame = document.querySelector("#gridgame");
 const gridTypes = ['empty', 'bomb', 'rat'];
+const owlSit2 = document.querySelector("#owlsit2");
 const fullHeartSrc = "images/hearticon.png";
 const brokenHeartSrc = "images/heartbrokenicon.png";
 const healthDisplay = document.querySelector("#health");
@@ -68,19 +60,22 @@ const ratsFoundDisplay = document.querySelector("#ratsfound");
 const ratsTotalDisplay = document.querySelector("#ratstotal");
 const messageDisplay = document.querySelector("#message");
 const btnReset = document.querySelector("#reset");
+const btnPlay = document.querySelector("#play");
+const tadaSound = new Audio('audio/ta-da.mp3');
+const explodeSound = new Audio('audio/deltarune-explosion.mp3');
 
 let gridItems = ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'];
 let maxHealth = 3;
 let health = 0;
 let ratsFound = 0;
 let ratsTotal = 0;
-
-// Stop putting () for functions inside event listeners unless it's newly initialised in there
+let countdown = 0;
 
 // Functions for menu navigation
 
 btnMenu.addEventListener("click", toggleMenus);
 
+// For hamburger menu (owl icon)
 function toggleMenus()
 {
     btnMenuPagesList.classList.toggle("menuShow");
@@ -100,12 +95,43 @@ function hideall()
     }
 }
 
+// Displays selected page, hides the rest
 function showPage(pgNo)
 {
-    hideall()
+    hideall();
     let onepage = document.querySelector("#page" + pgNo);
     onepage.classList.remove("hidden");
     onepage.classList.add("displayed");
+}
+
+// This resets every page's values (be it a quiz, game, state) back to default, as if resetting app status without a browser refresh
+function refreshAllPages()
+{
+    refreshClicks();
+    trueName.textContent = "Owl name";
+    trueDescription.textContent = "Description: Click on one of the photos to learn more about the owl!";
+    barnName.textContent = "Owl name";
+    barnDescription.textContent = "Description: Click on one of the photos to learn more about the owl!";
+
+
+    currentStageNum = 1;
+    toggleStageInfo();
+    resetQuiz();
+
+    maxHealth = 0;
+    ratsFound = 0;
+    ratsTotal = 0;
+    countdown = 4;
+
+    owlSit2.classList.remove("dead");
+    updateStatus();
+    gridGame.replaceChildren();
+    ratsTotalDisplay.textContent = ratsTotal;
+    btnPlay.textContent = "Click here to play game!";
+    if (btnPlay.classList.contains("hide"))
+    {
+        btnPlay.classList.remove("hide");
+    }
 }
 
 btnAbtOwl.addEventListener("click", function()
@@ -115,6 +141,7 @@ btnAbtOwl.addEventListener("click", function()
 
 btnOwlSpecies.addEventListener("click", function()
 {
+    refreshClicks();
     showPage(2);
 });
 
@@ -127,34 +154,62 @@ btnOwlHunt.addEventListener("click", function()
 
 btnFunFacts.addEventListener("click", function()
 {
+    resetQuiz();
     showPage(4);
 });
 
 btnOwlGame.addEventListener("click", function()
 {
     showPage(5);
-    createGrid();
+    countdown = 4;
+});
+
+btnRefresh.addEventListener("click", function()
+{
+    refreshAllPages();
 });
 
 hideall();
 showPage(1);
 
 // Page 2 Functions
+// Gets rid of :clicked state from before
+function refreshClicks()
+{
+    for (let currentOwlSelected of trueOwlList)
+    {
+        if (currentOwlSelected.classList.contains("clicked"))
+        {
+            currentOwlSelected.classList.remove("clicked");
+        }
+    }
+    
+    for (let currentOwlSelected of barnOwlList)
+    {
+        if (currentOwlSelected.classList.contains("clicked"))
+        {
+            currentOwlSelected.classList.remove("clicked");
+        }
+    }
+}
+
+// viewInfo: view the name and description of the owl
+// toggleInfo: changes which owl is currently being toggled on/viewed by the user
 function viewTrueInfo(infoNum)
 {
     switch (infoNum)
     {
         case 1:
             trueName.innerHTML = "Snowy Owl";
-            trueDescription.innerHTML = "A white owl that lives in the Arctic tundra. If you're a fan of Harry Potter, you might've seen it as Harry's owl! It is distinguised with its white feathers and black spots, with a height of up to 70cm. It hunts mostly small mammals during the day in the Arctic summer!";
+            trueDescription.innerHTML = "A white owl that lives in the Arctic tundra. If you're a fan of Harry Potter, you might've seen it as Harry's owl! It is distinguised with its white feathers and black spots, with a height of up to 70cm. It hunts mostly small mammals during the day in the Arctic summer! Photo by James Pintar";
             break;
         case 2:
             trueName.innerHTML = "Burrowing Owl";
-            trueDescription.innerHTML = "The burrowing owl lives in, well, burrows! Found in North and South America, they live underground in grasslands and deserts. They are quite active during the day and are quite the social birds! They also decorate their homes to attract prey!";
+            trueDescription.innerHTML = "The burrowing owl lives in, well, burrows! Found in North and South America, they live underground in grasslands and deserts. They are quite active during the day and are quite the social birds! They also decorate their homes to attract prey! Photo by Clyde Nishimura";
             break;
         case 3:
             trueName.innerHTML = "Boreal Owl";
-            trueDescription.innerHTML = "Similar to the Snowy Owl, they live in northern boreal forests in Canada, Alaska and Scandivania! They are very, very strictly elusive and nocturnal, so good luck spotting them in the day! They are quite small, about 27cm tall, making this bird species one of the most difficult to study!";
+            trueDescription.innerHTML = "Similar to the Snowy Owl, they live in northern boreal forests in Canada, Alaska and Scandivania! They are very, very strictly elusive and nocturnal, so good luck spotting them in the day! They are quite small, about 27cm tall, making this bird species one of the most difficult to study! Photo by Bruce G. McKee";
             break;
         default:
             trueName.innerHTML = "Owl Name";
@@ -200,15 +255,15 @@ function viewBarnInfo(infoNum)
     {
         case 1:
             barnName.innerHTML = "Barn Owl";
-            barnDescription.innerHTML = "True to its name, the barn owl is of the barn owl family and the most widespread owl in the world! It has a white, heart-shaped face, equipped with dark eyes, unlike the normfor owls. They are outstandingly silent mid-flight and hunts mostly rodents, being the perfect assistant for farmers!";
+            barnDescription.innerHTML = "True to its name, the barn owl is of the barn owl family and the most widespread owl in the world! It has a white, heart-shaped face, equipped with dark eyes, unlike the normfor owls. They are outstandingly silent mid-flight and hunts mostly rodents, being the perfect assistant for farmers! Photo by Peter K. Burian";
             break;
         case 2:
             barnName.innerHTML = "Eastern Grass Owl";
-            barnDescription.innerHTML = "Found in Southeast Asia and Australia, this particular barn owl lives amongst the tall grasslands and marshes. It has a special trait where it makes tunnels in the grass to avoid being spotted. Its elusive behaviour makes it hard to spot in the wild, despite what its natural habitats may suggest.";
+            barnDescription.innerHTML = "Found in Southeast Asia and Australia, this particular barn owl lives amongst the tall grasslands and marshes. It has a special trait where it makes tunnels in the grass to avoid being spotted. Its elusive behaviour makes it hard to spot in the wild, despite what its natural habitats may suggest. Photo by Alfred Schulte";
             break;
         case 3:
             barnName.innerHTML = "Bay Owl";
-            barnDescription.innerHTML = "Bay owls have a staggeringly low number of 2 species, that being the Oriental species and Sri Lanka species! Unlike normal barn owls, their faces are strongly curved, comparable to that of a hook, and prefer humid, dense forests, which could be the reason for the difference in face shape. However, due to their rarity, humans use them as indicators to determine how healthy a forest is!";
+            barnDescription.innerHTML = "Bay owls have a staggeringly low number of 2 species, that being the Oriental species and Sri Lanka species! Unlike normal barn owls, their faces are strongly curved, comparable to that of a hook, and prefer humid, dense forests, which could be the reason for the difference in face shape. However, due to their rarity, humans use them as indicators to determine how healthy a forest is! Photo by Ian Dugdale";
             break;
         default:
             barnName.innerHTML = "Owl Name";
@@ -249,7 +304,7 @@ btnBay.addEventListener("click", function()
 });
 
 // Page 3 Functions
-
+// Transitions are controlled here, with innerHTML for text and classes for CSS
 function viewStageInfo(infoNum)
 {
     switch (infoNum)
@@ -314,6 +369,7 @@ function viewStageInfo(infoNum)
     }
 }
 
+// Just removing or adding classes depending on the arrow the user presses
 function toggleStageInfo(arrowDir)
 {
     if (arrowDir === "left" && currentStageNum > 1)
@@ -339,6 +395,7 @@ rightArrow.addEventListener("click", function()
 });
 
 // Page 4 Functions
+// Checks every answer
 function checkAns()
 {
     if (!isQuizDone)
@@ -352,9 +409,12 @@ function checkAns()
         }
 
         let q2 = document.querySelectorAll("input[name = 'q2']:checked");
-        let selectedAns = Array.from(q2).map(checkbox => checkbox.value);
+        let selectedAns = Array.from(q2).map(function(checkbox)
+        {
+            return checkbox.value;
+        });
         let correctAns = ['moretrue', 'rotate'];
-        if (selectedAns.length === correctAns.length && selectedAns.every(ans => correctAns.includes(ans)))
+        if (selectedAns.length === correctAns.length && selectedAns.every(function(ans){return correctAns.includes(ans);}))
         {
             score++;
         }
@@ -379,7 +439,7 @@ function checkAns()
             score++;
         }
 
-        scoreText.textContent = `Score: ${score}`;
+        scoreText.textContent = "Score: " + score;
         isQuizDone = true;
     }
     else
@@ -388,11 +448,12 @@ function checkAns()
     }
 }
 
+// Removes any previous input by the user
 function resetQuiz()
 {
     isQuizDone = false;
-    scoreText.textContent = "Not submitted"
-    qnList.forEach(qn =>
+    scoreText.textContent = "Not submitted";
+    qnList.forEach(function(qn)
     {
         switch (qn.type)
         {
@@ -412,6 +473,13 @@ function resetQuiz()
     });
 }
 
+// Plays the sound you're suppose to listen to to do qn4
+btnSound.addEventListener("click", function()
+{
+    owlSound.currentTime = 0;
+    owlSound.play();
+});
+
 q5.addEventListener("input", function()
 {
     rangeValue = q5.value;
@@ -428,17 +496,43 @@ btnRetry.addEventListener("click", function()
 });
 
 // Page 5 Functions
+// A mini countdown before the game begins and will also call to create the game objects here
+function gameCountdown()
+{
+    let interval = setInterval(function()
+    {
+        countdown--;
+        btnPlay.textContent = countdown;
+
+        if (countdown <= 0)
+        {
+            clearInterval(interval);
+            btnPlay.textContent = "Go!";
+            setTimeout(function()
+            {
+                btnPlay.textContent = '';
+                btnPlay.classList.add("hide");
+                createGrid();
+            }, 1500);
+        }
+
+    }, 1000);
+}
+
+// Will return either empty, bomb or rat
 function getRandomGridType()
 {
     return gridTypes[Math.floor(Math.random() * gridTypes.length)];
 }
 
+// Updates game information (HP, total rats found, etc)
 function updateStatus()
 {
-    updateHealthDisplay()
+    updateHealthDisplay();
     ratsFoundDisplay.textContent = ratsFound;
 }
 
+// Uses appendChildren() here to create different grids of different types
 function createGrid()
 {
     gridGame.innerHTML = '';
@@ -449,8 +543,9 @@ function createGrid()
     
     updateHealthDisplay();
 
-    for (let {} of gridItems)
+    for (let item of gridItems)
     {   
+        console.log(item);
         const gridTile = document.createElement("div");
         gridTile.classList.add("griditem");
         gridTile.textContent = '';
@@ -468,6 +563,7 @@ function createGrid()
     ratsTotalDisplay.textContent = ratsTotal;
 }
 
+// Renders either a red heart or broken heart depending on current HP
 function updateHealthDisplay()
 {
     healthDisplay.replaceChildren();
@@ -496,7 +592,7 @@ function updateHealthDisplay()
 function revealAllTiles()
 {
     const allTiles = document.querySelectorAll(".griditem");
-    allTiles.forEach(tile =>
+    allTiles.forEach(function(tile)
     {
         let type = tile.dataset.hidden;
         tile.classList.add(type);
@@ -504,6 +600,7 @@ function revealAllTiles()
     });
 }
 
+// This uses event delegation since there's a lot of grids
 function clickTile(tile) 
 {
     let gridTile = tile;
@@ -513,18 +610,36 @@ function clickTile(tile)
     {
         gridTile.classList.add("revealed");
 
+        // Will play some animations depending on what you got
         if (type === 'bomb')
         {
+            owlSit2.classList.add("sad");
+            setTimeout(function()
+            {
+                owlSit2.classList.remove("sad");
+            }, 500);
+            
+            explodeSound.currentTime = 0;
+            explodeSound.play();
             gridTile.classList.add('bomb');
             health--;
             if (health <= 0)
             {
+                owlSit2.classList.add("dead");
                 messageDisplay.textContent = "You lose!";
                 revealAllTiles();
             }
         }
         else if (type === 'rat')
         {
+            owlSit2.classList.add("happy");
+            setTimeout(function()
+            {
+                owlSit2.classList.remove("happy");
+            }, 500);
+            
+            tadaSound.currentTime = 0;
+            tadaSound.play();
             gridTile.classList.add('rat');
             ratsFound++;
             if (ratsFound === ratsTotal)
@@ -544,11 +659,33 @@ function clickTile(tile)
 
 gridGame.addEventListener("click", function(event)
 {
-    const tile = event.target.closest(".griditem");
+    const tile = event.target.closest(".griditem"); // closest is so that it will almost always guarantees to return caller (.griditem) as tile
     if (tile && !tile.classList.contains("revealed") && health > 0 && ratsFound < ratsTotal)
     {
         clickTile(tile);
     }
 });
 
-btnReset.addEventListener("click", createGrid)
+btnPlay.addEventListener("click", function()
+{
+    gameCountdown();
+});
+
+btnReset.addEventListener("click", function()
+{
+    // Reset to default values and brings back the play button
+    maxHealth = 0;
+    ratsFound = 0;
+    ratsTotal = 0;
+    countdown = 4;
+
+    owlSit2.classList.remove("dead");
+    updateStatus();
+    gridGame.replaceChildren();
+    ratsTotalDisplay.textContent = ratsTotal;
+    btnPlay.textContent = "Click here to play game!";
+    if (btnPlay.classList.contains("hide"))
+    {
+        btnPlay.classList.remove("hide");
+    }
+});

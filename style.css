@@ -1,3 +1,23 @@
+/* Main difference between each breakpoint is the vw and vh values used */
+
+@font-face {
+    font-family: "montserrat";
+    src: url(fonts/montserrat.ttf);
+}
+
+@font-face {
+    font-family: "roboto";
+    src: url(fonts/robotoslab.ttf);
+}
+
+* {
+    font-family: "montserrat", sans-serif;
+}
+
+h1, h2, h3, h4 {
+    font-family: "roboto", sans-serif;
+}
+
 body {
     background-color: #009933;
 }
@@ -22,7 +42,12 @@ button {
 @media (min-width: 800px)
 {
     /* Nav */
-    
+    h2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
     nav {
         display: flex;
         flex-direction: row;
@@ -30,6 +55,12 @@ button {
     
     nav ul li {
         display: inline;
+    }
+
+    .center {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     #menu {
@@ -84,6 +115,12 @@ button {
         display: block;
     }
 
+    #page2.displayed #trueName, #page2.displayed #barnName {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
     #page2 article div {
         display: flex;
         flex-direction: row;
@@ -117,12 +154,21 @@ button {
     }
 
     /* Page 3 */
+    #page3.displayed {
+        display: block;
+    }
 
     #page3 h3+div, #page3 #arrows {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    #page3.displayed #huntstage {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     #page3 h3+div {
@@ -353,6 +399,43 @@ button {
     }
 
     /* Page 5 */
+    #page5.displayed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #gameinfo {
+        display: flex;
+        flex-direction: row;
+        gap: 10.0vw;
+    }
+
+    #owlsit2 {
+        width: 50%;
+        height: auto;
+        opacity: 1.0;
+
+        transition: opacity 1.0s;
+    }
+
+    #owlsit2.dead {
+        opacity: 0;
+    }
+
+    #owlsit2.happy {
+        animation: happyowl 0.5s ease-in-out;
+    }
+
+    #owlsit2.sad {
+        animation: sadowl 0.5s ease-in-out;
+    }
+
+    #status {
+        display: flex;
+        flex-direction: column;
+    }
+
     #gridgame {
         display: grid;
         grid-template-columns: repeat(5, 8vw);
@@ -403,10 +486,76 @@ button {
 	    width: 128px;
 	    height: 124px;
     }
+
+    #play {
+        display: flex;
+        width: 90vw;
+        height: 9vh;
+        padding-top: 3.0vh;
+        padding-bottom: 4.0vh;
+        padding-left: 35vw;
+        padding-right: 35vw;
+    }
+
+    #play.hide {
+        display: none;
+    }
+
+    /* Animations */
+
+    @keyframes happyowl {
+        0% 
+        {
+            transform: translate(0vw, 0vh);
+        }
+
+        50%
+        {
+            transform: translate(0vw, -5vh);
+        }
+
+        100%
+        {
+            transform: translate(0vw, 0vh);
+        }
+    }
+
+    @keyframes sadowl {
+        0%
+        {
+            rotate: 0deg;
+        }
+
+        25%
+        {
+            rotate: 90deg;
+        }
+
+        50%
+        {
+            rotate: 180deg;
+        }
+
+        75%
+        {
+            rotate: 270deg;
+        }
+
+        100%
+        {
+            rotate: 360deg;
+        }
+    }
 }
 
 @media (max-width: 800px)
 {
+    h2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    
     nav {
         display: flex;
         flex-direction: row;
@@ -415,6 +564,12 @@ button {
     nav ul li {
         display: flex;
         flex-direction: column;
+    }
+
+    .center {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     #menu {
@@ -469,16 +624,23 @@ button {
         display: block;
     }
 
-    #page2 article div {
+    #page2.displayed #trueName, #page2.displayed #barnName {
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: center;
+    }
+
+    #page2 article div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.0em;
 
         max-width: 100%;
     }
 
     #page2 article div img {
-        max-width: 30%;
+        max-width: 80%;
         height: auto;
 
         transition: opacity ease 0.3s, transform ease 0.3s;
@@ -502,12 +664,21 @@ button {
     }
 
     /* Page 3 */
-
+    #page3.displayed {
+        display: block;
+    }
+    
     #page3>h3+div, #page3 #arrows {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    #page3.displayed #huntstage {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     #page3 h3+div {
@@ -738,6 +909,43 @@ button {
     }
 
     /* Page 5 */
+    #page5.displayed {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #gameinfo {
+        display: flex;
+        flex-direction: row;
+        gap: 10.0vw;
+    }
+
+    #owlsit2 {
+        width: 50%;
+        height: auto;
+        opacity: 1.0;
+
+        transition: opacity 1.0s;
+    }
+
+    #owlsit2.dead {
+        opacity: 0;
+    }
+
+    #owlsit2.happy {
+        animation: happyowl 0.5s ease-in-out;
+    }
+
+    #owlsit2.sad {
+        animation: sadowl 0.5s ease-in-out;
+    }
+
+    #status {
+        display: flex;
+        flex-direction: column;
+    }
+
     #gridgame {
         display: grid;
         grid-template-columns: repeat(5, 8vw);
@@ -787,5 +995,65 @@ button {
         background: url('images/icon-sprites.png') no-repeat -236px -32px;
 	    width: 128px;
 	    height: 124px;
+    }
+
+    #play {
+        display: flex;
+        width: 90vw;
+        height: 9vh;
+        padding-top: 3.0vh;
+        padding-bottom: 4.0vh;
+        padding-left: 20vw;
+        padding-right: 25vw;
+    }
+
+    #play.hide {
+        display: none;
+    }
+
+    /* Animations */
+
+    @keyframes happyowl {
+        0% 
+        {
+            transform: translate(0vw, 0vh);
+        }
+
+        50%
+        {
+            transform: translate(0vw, -5vh);
+        }
+
+        100%
+        {
+            transform: translate(0vw, 0vh);
+        }
+    }
+
+    @keyframes sadowl {
+        0%
+        {
+            rotate: 0deg;
+        }
+
+        25%
+        {
+            rotate: 90deg;
+        }
+
+        50%
+        {
+            rotate: 180deg;
+        }
+
+        75%
+        {
+            rotate: 270deg;
+        }
+
+        100%
+        {
+            rotate: 360deg;
+        }
     }
 }
