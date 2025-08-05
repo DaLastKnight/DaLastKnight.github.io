@@ -42,6 +42,18 @@ button {
 
 @media (min-width: 800px)
 {
+    #qr {
+        display: flex;
+        flex-direction: row;
+        width: 40vw;
+        gap: 2vw;
+    }
+    
+    #qrcode {
+        width: 100px;
+        height: auto;
+    }
+    
     /* Nav */
     h2 {
         display: flex;
@@ -551,6 +563,10 @@ button {
 
 @media (max-width: 800px)
 {
+    #qr {
+        display: none;
+    }
+    
     h2 {
         display: flex;
         flex-direction: row;

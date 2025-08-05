@@ -9,6 +9,8 @@ const btnOwlHunt = document.querySelector("#owlhunt");
 const btnFunFacts = document.querySelector("#funfacts");
 const btnOwlGame = document.querySelector("#owlgame");
 const btnRefresh = document.querySelector("#refresh");
+const btnFullscreen = document.querySelector("#fullscreen");
+const btnWindowed = document.querySelector("#windowed");
 
 let allpages = document.querySelectorAll(".page");
 
@@ -135,6 +137,46 @@ function refreshAllPages()
     }
 }
 
+function enterFullscreen()
+{
+    if (document.documentElement.requestFullscreen)
+    {
+        document.documentElement.requestFullscreen();
+    }
+    else if (document.documentElement.mozRequestFullScreen)
+    {
+        document.documentElement.mozRequestFullScreen();
+    }
+    else if (document.documentElement.webkitRequestFullscreen)
+    {
+        document.documentElement.webkitRequestFullscreen();
+    }
+    else if (document.documentElement.msRequestFullscreen)
+    {
+        document.documentElement.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen()
+{
+    if (document.exitFullscreen)
+    {
+        document.exitFullscreen();
+    }
+    else if (document.mozCancelFullScreen)
+    {
+        document.mozCancelFullScreen();
+    }
+    else if (document.webkitExitFullscreen)
+    {
+        document.webkitExitFullscreen();
+    }
+    else if (document.msExitFullscreen)
+    {
+        document.msExitFullscreen();
+    }
+}
+
 btnAbtOwl.addEventListener("click", function()
 {
     showPage(1);
@@ -168,6 +210,16 @@ btnOwlGame.addEventListener("click", function()
 btnRefresh.addEventListener("click", function()
 {
     refreshAllPages();
+});
+
+btnFullscreen.addEventListener("click", function()
+{
+    enterFullscreen();
+});
+
+btnWindowed.addEventListener("click", function()
+{
+    exitFullscreen();
 });
 
 hideall();

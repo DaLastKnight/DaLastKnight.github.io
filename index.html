@@ -3,7 +3,10 @@
 <html lang = "en">
     <head>
         <title>Owls</title>
-        <meta name = "viewport" content = "width=device-width, initial scale = 1.0">
+        <meta name = "viewport" content = "width=device-width, initial scale = 1.0, maximum-scale = 1, user-scalable = no">
+        <meta name = "mobile-web-app-capable" content = "yes">
+        <meta name = "apple-mobile-web-app-capable" content = "yes">
+        <link rel = "icon" type = "image/x-icon" href = "images/favicon.ico">
         <meta charset = "UTF-8">
         <link href = "style.css" type = "text/css" rel = "stylesheet">
         <script src = "main.js" defer></script>
@@ -21,7 +24,9 @@
                     <li><button id = "owlhunt">Owl Hunt</button></li>
                     <li><button id = "funfacts">Fun facts</button></li>
                     <li><button id = "owlgame">Minigame</button></li>
-                    <li><button id = "refresh">Refresh</button></li> <!-- resets all pages to their default values-->
+                    <li><button id = "refresh">Refresh Pages</button></li> <!-- resets all pages to their default values-->
+                    <li><button id = "fullscreen">Enter Fullscreen</button></li>
+                    <li><button id = "windowed">Exit Fullscreen</button></li>
                 </ul>
             </nav>
         </header>
@@ -205,6 +210,10 @@
                 <h3>Lab number: 02</h3>
                 <h3>Name: Muhammad Aizzul Bin Muhammad Alfian</h3> <!-- Hey! That's me! -->
                 <h3>Admin number: 250493N</h3>
+                <div id = "qr">
+                    <img src = "images/qrcode.png" alt = "qrcode image" title = "qrcode" id = "qrcodeimg" width = 100>
+                    <p>Like what you're seeing? Scan the QR code to save on your phone!</p>
+                </div>
             </footer>
         </main>
     </body>
