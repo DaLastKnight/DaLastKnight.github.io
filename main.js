@@ -1,3 +1,4 @@
+// Validated by BeautifyTools Javascript Validator!
 // Menu Nav variables
 const btnMenu = document.querySelector("#menu");
 const meText = document.querySelector("#me");
