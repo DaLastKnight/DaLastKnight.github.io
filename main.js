@@ -1,11 +1,12 @@
 // Menu Nav variables
 const btnMenu = document.querySelector("#menu");
+const meText = document.querySelector("#me");
 const btnMenuPagesList = document.querySelector("nav ul");
 const btnAbtOwl = document.querySelector("#abtowl");
 const btnOwlSpecies = document.querySelector("#owlspecies");
 const btnOwlHunt = document.querySelector("#owlhunt");
 const btnFunFacts = document.querySelector("#funfacts");
-const btnOwlGame = document.querySelector("#owlgame")
+const btnOwlGame = document.querySelector("#owlgame");
 
 let allpages = document.querySelectorAll(".page");
 
@@ -29,11 +30,11 @@ const barnDescription = document.querySelector("#barnDescription");
 
 const huntStage = document.querySelector("#huntstage");
 const huntText = document.querySelector("#hunttext");
+const huntText2 = document.querySelector("#hunttext2");
 const leftArrow = document.querySelector("#leftarrow");
 const rightArrow = document.querySelector("#rightarrow");
-const phoneLeftArrow = document.querySelector("#phoneleftarrow");
-const phoneRightArrow = document.querySelector("#phonerightarrow")
 const arrowsList = document.querySelectorAll(".arrow");
+const textList = document.querySelectorAll(".text");
 
 let currentStageNum = 1;
 
@@ -83,6 +84,7 @@ btnMenu.addEventListener("click", toggleMenus);
 function toggleMenus()
 {
     btnMenuPagesList.classList.toggle("menuShow");
+    meText.classList.toggle("hide");
 }
 
 function hideall()
@@ -119,7 +121,6 @@ btnOwlSpecies.addEventListener("click", function()
 btnOwlHunt.addEventListener("click", function()
 {
     showPage(3);
-    changeDisplayedArrows();
     currentStageNum = 1;
     toggleStageInfo("nil");
 });
@@ -248,27 +249,6 @@ btnBay.addEventListener("click", function()
 });
 
 // Page 3 Functions
-function changeDisplayedArrows()
-{
-    for (let currentArrow of arrowsList)
-    {
-        if (currentArrow.classList.contains("#displayed"))
-        {
-            currentArrow.classList.remove("displayed");
-        }
-    }
-
-    if (parseInt(window.innerWidth) >= 800)
-    {
-        leftArrow.classList.add("displayed");
-        rightArrow.classList.add("displayed");
-    }
-    else
-    {
-        phoneLeftArrow.classList.add("displayed");
-        phoneRightArrow.classList.add("displayed");
-    }
-}
 
 function viewStageInfo(infoNum)
 {
@@ -287,6 +267,7 @@ function viewStageInfo(infoNum)
 
             huntStage.innerHTML = "Stage 1: Timing the hunt";
             huntText.innerHTML = "Most owls, like the barn owl, are nocturnal and use their enchanced night vision and sharp hearing to hunt during the night, when their prey like rodents and insects are more active. However, there are some exceptions like the short-eared owl and burrowing owl that hunt during either sunrise or sunset and in full daylight respectively.";
+            huntText2.innerHTML = "Most owls, like the barn owl, are nocturnal and use their enchanced night vision and sharp hearing to hunt during the night, when their prey like rodents and insects are more active. However, there are some exceptions like the short-eared owl and burrowing owl that hunt during either sunrise or sunset and in full daylight respectively.";
             break;
         case 2:
             for (let currentElement of huntElementsList)
@@ -301,6 +282,7 @@ function viewStageInfo(infoNum)
 
             huntStage.innerHTML = "Stage 2: Locating the prey";
             huntText.innerHTML = "When it comes to locating prey, owls use their binocular vision and forward-facing eyes that have retinas tuned to low light levels to find prey. Some owls don't even use vision, and fully rely on their hearing to locate prey in total darkness, which is supported by their satellite-shaped facial disks that funnel the sound of their surroundings to their ears.";
+            huntText2.innerHTML = "When it comes to locating prey, owls use their binocular vision and forward-facing eyes that have retinas tuned to low light levels to find prey. Some owls don't even use vision, and fully rely on their hearing to locate prey in total darkness, which is supported by their satellite-shaped facial disks that funnel the sound of their surroundings to their ears.";
             break;
         case 3:
             for (let currentElement of huntElementsList)
@@ -315,6 +297,7 @@ function viewStageInfo(infoNum)
 
             huntStage.innerHTML = "Stage 3: Stalking and approaching the prey";
             huntText.innerHTML = "When approaching their next meal, owls use their unique feathers to break turbulence and reduce sound. This allows them to glide silently to a striking position, often without their prey knowing they're coming. Certain owls perch and ambush their prey, while others may hover around their prey and wait for the opportunity to strike their prey.";
+            huntText2.innerHTML = "When approaching their next meal, owls use their unique feathers to break turbulence and reduce sound. This allows them to glide silently to a striking position, often without their prey knowing they're coming. Certain owls perch and ambush their prey, while others may hover around their prey and wait for the opportunity to strike their prey.";
             break;
         case 4:
             for (let currentElement of huntElementsList)
@@ -324,6 +307,7 @@ function viewStageInfo(infoNum)
 
             huntStage.innerHTML = "Stage 4: Striking the prey";
             huntText.innerHTML = "Owls, being raptors, kill off their prey by using their razor sharp talons instead of their beaks to pierce through their prey. Not all owls kill off their prey immediately however, because they may choose to bring them back to their nest and finish the job later on.";
+            huntText2.innerHTML = "Owls, being raptors, kill off their prey by using their razor sharp talons instead of their beaks to pierce through their prey. Not all owls kill off their prey immediately however, because they may choose to bring them back to their nest and finish the job later on.";
             break;
         default:
             break;
@@ -341,7 +325,6 @@ function toggleStageInfo(arrowDir)
         currentStageNum++;
     }
 
-    console.log("yes!");
     viewStageInfo(currentStageNum);
 }
 

@@ -2,6 +2,23 @@ body {
     background-color: #009933;
 }
 
+.menuShow {
+    display: block;
+}
+
+#me {
+    display: block;
+    padding-left: 3.0vw;
+}
+
+#me.hide {
+    display: none;
+}
+
+button {
+    border-style: none;
+}
+
 @media (min-width: 800px)
 {
     /* Nav */
@@ -101,7 +118,7 @@ body {
 
     /* Page 3 */
 
-    #page3>div {
+    #page3 h3+div, #page3 #arrows {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -123,7 +140,12 @@ body {
     }
 
     #page3>div #hunttext {
+        display: flex;
         max-width: 65%;
+    }
+
+    #hunttext2 {
+        display: none;
     }
 
     #page3 #leftarrow {
@@ -391,7 +413,8 @@ body {
     }
     
     nav ul li {
-        display: inline;
+        display: flex;
+        flex-direction: column;
     }
 
     #menu {
@@ -480,7 +503,7 @@ body {
 
     /* Page 3 */
 
-    #page3>div {
+    #page3>h3+div, #page3 #arrows {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -497,12 +520,17 @@ body {
     }
 
     #page3>div .arrow {
-        max-width: 25%;
+        max-width: 50%;
         height: auto;
     }
 
     #page3>div #hunttext {
-        max-width: 50%;
+        display: none;
+    }
+
+    #hunttext2 {
+        display: flex;
+        max-width: 100%;
     }
 
     #page3 #leftarrow {
@@ -565,35 +593,35 @@ body {
     #owlfly.stage1.stage2.stage3.stage4 {
         position: relative;
         opacity: 1.0;
-        transform: translate(50vw, 2vh) scale(1.40);
+        transform: translate(50vw, 5vh) scale(1.40);
     }
 
     #rat.stage1 {
         position: relative;
         z-index: 2;
         opacity: 0;
-        transform: translate(10vw, 16vh) scale(0.6);
+        transform: translate(10vw, 10vh) scale(0.6);
         transition: transform 0.5s, opacity 0.5s;
     }
 
     #rat.stage1.stage2 {
         position: relative;
         opacity: 1;
-        transform: translate(10vw, 16vh) scale(0.6);
+        transform: translate(10vw, 10vh) scale(0.6);
         transition: transform 0.5s, opacity 0.5s;
     }
 
     #rat.stage1.stage2.stage3 {
         position: relative;
         opacity: 1;
-        transform: translate(20vw, 16vh) scale(0.6);
+        transform: translate(20vw, 10vh) scale(0.6);
         transition: transform 0.5s;
     }
 
     #rat.stage1.stage2.stage3.stage4 {
         position: relative;
         opacity: 1;
-        transform: translate(40vw, 16vh) scale(0.6);
+        transform: translate(40vw, 10vh) scale(0.6);
         transition: transform 0.5s;
     }
 
@@ -601,28 +629,28 @@ body {
         position: relative;
         z-index: 1;
         opacity: 0;
-        transform: translate(0vw, 16vh) scale(0.5);
+        transform: translate(0vw, 10vh) scale(0.5);
         transition: transform 0.5s, opacity 0.5s;
     }
 
     #cheese.stage1.stage2 {
         position: relative;
         opacity: 1;
-        transform: translate(0vw, 16vh) scale(0.5);
+        transform: translate(0vw, 10vh) scale(0.5);
         transition: transform 0.5s, opacity 0.5s;
     }
 
     #cheese.stage1.stage2.stage3, #cheese.stage1.stage2.stage3.stage4 {
         position: relative;
         opacity: 1;
-        transform: translate(10vw, 16vh) scale(0.5);
+        transform: translate(10vw, 10vh) scale(0.5);
         transition: transform 0.5s, opacity 0.5s;
     }
 
     #cheese.stage1.stage2.stage3.stage4 {
         position: relative;
         opacity: 0.5;
-        transform: translate(10vw, 16vh) scale(0.5);
+        transform: translate(10vw, 10vh) scale(0.5);
 
     }
 
@@ -656,37 +684,37 @@ body {
 
     @keyframes SunMoving {
         0% {
-            transform: translate(10vw, -15vh);
+            transform: translate(10vw, -10vh);
         }
         
         25% {
-            transform: translate(10vw, -15vh) rotate(-30deg);
+            transform: translate(10vw, -10vh) rotate(-30deg);
         }
 
         62.5% {
-            transform: translate(10vw, -15vh) rotate(30deg);
+            transform: translate(10vw, -10vh) rotate(30deg);
         }
 
         100% {
-            transform: translate(10vw, -15vh) rotate(0deg);
+            transform: translate(10vw, -10vh) rotate(0deg);
         }
     }
 
     @keyframes MoonMoving {
         0% {
-            transform: translate(-5vw, -15vh) scale(0.65);
+            transform: translate(-5vw, -10vh) scale(0.65);
         }
         
         25% {
-            transform: translate(-5vw, -15vh) rotate(-30deg) scale(0.65);
+            transform: translate(-5vw, -10vh) rotate(-30deg) scale(0.65);
         }
 
         62.5% {
-            transform: translate(-5vw, -15vh) rotate(30deg) scale(0.65);
+            transform: translate(-5vw, -10vh) rotate(30deg) scale(0.65);
         }
 
         100% {
-            transform: translate(-5vw, -15vh) rotate(0deg) scale(0.65);
+            transform: translate(-5vw, -10vh) rotate(0deg) scale(0.65);
         }
     }
 
@@ -713,14 +741,14 @@ body {
     #gridgame {
         display: grid;
         grid-template-columns: repeat(5, 8vw);
-        gap: 0.1em;
-        padding: 0.1em;
+        gap: 20px;
+        padding: 10px;
     }
 
     .griditem {
         opacity: 1.0;
         background-color: saddlebrown;
-        height: 3vh;
+        height: 1vh;
         color: white;
         text-align: center;
         padding: 20px;
@@ -760,12 +788,4 @@ body {
 	    width: 128px;
 	    height: 124px;
     }
-}
-
-.menuShow {
-    display: block;
-}
-
-button {
-    border-style: none;
 }
